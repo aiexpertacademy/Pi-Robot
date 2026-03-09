@@ -331,6 +331,20 @@ if __name__ == "__main__":
         picam2.start()
         time.sleep(2)
         threading.Thread(target=camera_worker, args=(picam2,), daemon=True).start()
+    else:
+        print("Initializing Standard Webcam (Testing Mode)...")
+        cap = cv2.VideoCapture(0) # Open default webcam
+        
+        def fallback_camera_worker():
+            global latest_frame
+            while True:
+                ret, frame = cap.read()
+                if ret:
+                    with frame_lock:
+                        latest_frame = frame
+                time.sleep(0.03)
+
+        threading.Thread(target=fallback_camera_worker, daemon=True).start()
 
     # 2. Start the visual tracking UI logic 
     threading.Thread(target=visual_tracking_loop, daemon=True).start()
