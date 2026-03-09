@@ -1,0 +1,16 @@
+# Virtual Environments
+venv/
+venv_stable/
+.env
+
+# Node modules
+client/node_modules/
+client/dist/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Large example files (Optional, but recommended so GitHub upload is fast)
+examples/
+examples.zip
